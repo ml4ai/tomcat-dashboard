@@ -1,0 +1,10 @@
+#!/bin/bash
+
+curl -L https://sourceforge.net/projects/wxmathplot/files/latest/download > /tmp/wxmathplot.zip
+unzip /tmp/wxmathplot.zip -d /tmp/
+
+pushd /tmp/mathplot
+	cmake .
+	make
+	make install	
+popd
