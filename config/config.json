@@ -1,0 +1,28 @@
+{
+	"ASRWidget":
+	{
+		"topics":[
+			"agent/asr/final",
+			"agent/asr/intermediate"
+			"trial"
+		],
+		"1": {
+			"playername":"P000421",
+			"component_name": "UTTERANCE_TEXT_1"
+		},
+		"2":{
+			"playername":"P000422",
+			"component_name": "UTTERANCE_TEXT_2"
+		},
+		"3":{
+			"playername":"P000423",
+			"component_name": "UTTERANCE_TEXT_3"
+		}
+	},
+	"ScoreWidget":{
+		"topics":[
+			"observations/events/scoreboard"
+		],
+		"panel_name": "SCORE_PANEL"
+	}
+}
