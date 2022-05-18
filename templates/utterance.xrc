@@ -2,7 +2,7 @@
 <resource xmlns="http://www.wxwidgets.org/wxxrc" version="2.5.3.0">
 	<object class="wxFrame" name="MyFrame1">
 		<style>wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL</style>
-		<size>500,300</size>
+		<size>691,402</size>
 		<title>frame</title>
 		<centered>1</centered>
 		<aui_managed>0</aui_managed>
@@ -13,7 +13,7 @@
 				<flag>wxALL</flag>
 				<border>5</border>
 				<object class="wxStaticText" name="m_staticText1">
-					<label>MyLabel</label>
+					<label>m__staticText1</label>
 					<wrap>-1</wrap>
 				</object>
 			</object>
@@ -22,7 +22,7 @@
 				<flag>wxALL</flag>
 				<border>5</border>
 				<object class="wxStaticText" name="m_staticText2">
-					<label>MyLabel</label>
+					<label>m__staticText2</label>
 					<wrap>-1</wrap>
 				</object>
 			</object>
@@ -31,8 +31,21 @@
 				<flag>wxALL</flag>
 				<border>5</border>
 				<object class="wxStaticText" name="m_staticText3">
-					<label>MyLabel</label>
+					<label>m__staticText3</label>
 					<wrap>-1</wrap>
+				</object>
+			</object>
+		</object>
+		<object class="wxMenuBar" name="m_menubar8">
+			<object class="wxMenu" name="m_menu3">
+				<label>Display</label>
+				<object class="wxMenuItem" name="m_menuItem1">
+					<label>Utterances</label>
+					<help></help>
+				</object>
+				<object class="wxMenuItem" name="m_menuItem2">
+					<label>Score</label>
+					<help></help>
 				</object>
 			</object>
 		</object>

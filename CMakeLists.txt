@@ -32,8 +32,8 @@ add_executable(gui
     src/MosquittoClient.cpp
     src/Widget.cpp
     src/ASRWidget.cpp
-    src/ScoreWidget.cpp
-    src/Frontend.cpp
+    #src/ScoreWidget.cpp
+    #src/Frontend.cpp
 )
 
 target_link_libraries(
