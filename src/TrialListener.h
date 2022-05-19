@@ -14,6 +14,7 @@ class TrialListener{
 		std::string GetTrialId();
 		std::string GetExperimentId();
 		nlohmann::json GetTrialMessage();
+		std::vector<std::string> GetParticipants();
 		bool InTrial();
 
 	private:

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <resource xmlns="http://www.wxwidgets.org/wxxrc" version="2.5.3.0">
-	<object class="wxFrame" name="MyFrame1">
+	<object class="wxFrame" name="Utterance Frame">
 		<style>wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL</style>
 		<size>691,402</size>
 		<title>frame</title>
@@ -12,7 +12,7 @@
 				<option>0</option>
 				<flag>wxALL</flag>
 				<border>5</border>
-				<object class="wxStaticText" name="m_staticText1">
+				<object class="wxStaticText" name="UTTERANCE_TEXT_1">
 					<label>m__staticText1</label>
 					<wrap>-1</wrap>
 				</object>
@@ -21,7 +21,7 @@
 				<option>0</option>
 				<flag>wxALL</flag>
 				<border>5</border>
-				<object class="wxStaticText" name="m_staticText2">
+				<object class="wxStaticText" name="UTTERANCE_TEXT_2">
 					<label>m__staticText2</label>
 					<wrap>-1</wrap>
 				</object>
@@ -30,7 +30,7 @@
 				<option>0</option>
 				<flag>wxALL</flag>
 				<border>5</border>
-				<object class="wxStaticText" name="m_staticText3">
+				<object class="wxStaticText" name="UTTERANCE_TEXT_3">
 					<label>m__staticText3</label>
 					<wrap>-1</wrap>
 				</object>

@@ -9,7 +9,6 @@
 #include <string>
 #include <vector>
 
-//#include "Frontend.h"
 #include "Widget.h"
 #include "ASRWidget.h"
 //#include "ScoreWidget.h"
@@ -30,17 +29,17 @@ public:
 wxIMPLEMENT_APP(MyApp);
 
 bool MyApp::OnInit() {
+  std::string mqtt_host = "localhost";
+  std::string mqtt_port = "1883"; 
+
   // Load XRC files
   wxXmlResource::Get()->InitAllHandlers();
   wxXmlResource::Get()->LoadAllFiles("templates");
   
-
   // Generate ASRWidgets
   utterance_frame = new wxFrame(); 
   if(wxXmlResource::Get()->LoadFrame(utterance_frame, NULL, "Utterance Frame")){
-	  widgets.push_back(new ASRWidget(utterance_frame));
-	  widgets.push_back(new ASRWidget(utterance_frame));
-	  widgets.push_back(new ASRWidget(utterance_frame));	  
+	 widgets.push_back(new ASRWidget(utterance_frame, "ASRWidget", mqtt_host, mqtt_port));
 	  
 	  utterance_frame->Show();
 	  utterance_frame->Maximize();  

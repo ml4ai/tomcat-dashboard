@@ -13,35 +13,17 @@
 
 #include "Widget.h"
 
-class ASRWidget : public Widget {
-	
-	public:
-		inline static const std::string type = "ASRWidget";
-		inline static int current_id = 1;
-		int id = -1;
-	public:
-		ASRWidget(wxFrame *frame);
-		~ASRWidget();
-
+class ASRWidget : public Widget {	
+	public:	
+		ASRWidget(wxFrame *frame, std::string type, std::string mqtt_host, std::string mqtt_port);
 		void Update() override;
+
 	protected:
-		void on_message(const std::string& topic,
-                    const std::string& message) override;
+		void OnMessage(std::string topic, std::string message) override;
 
 	private:
-		// Framework
-		std::mutex mutex;
-		std::queue<std::string> queue;
-	
-		// Config values	
-		std::string playername;
-		std::string component_name;
-
 		// wx Components
-		wxStaticText *static_text;
-
-	private:
-		void Initialize();
-		void UpdatePrivate(std::string);
+		wxFrame *frame;
+		std::vector<wxStaticText *> static_text; 
 };
 

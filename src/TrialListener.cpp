@@ -30,11 +30,11 @@ string TrialListener::GetTrialId(){
 			return trial_id;
 		}
 		catch(exception e){
-			BOOST_LOG_TRIVIAL(info) << "Error: trial_id field is missing from trial message";
+			BOOST_LOG_TRIVIAL(error) << "trial_id field is missing from trial message";
 		}
 	}
 	else{
-		BOOST_LOG_TRIVIAL(info) << "Error: Can't access trial_id while not in trial";
+		BOOST_LOG_TRIVIAL(error) << "Can't access trial_id while not in trial";
 	}
 	return "";
 }
@@ -47,11 +47,11 @@ string TrialListener::GetExperimentId(){
 			return experiment_id;
 		}
 		catch(exception e){
-			BOOST_LOG_TRIVIAL(info) << "Error: experiment_id field is missing from trial message";
+			BOOST_LOG_TRIVIAL(error) << "experiment_id field is missing from trial message";
 		}
 	}
 	else{
-		BOOST_LOG_TRIVIAL(info) << "Error: Can't access experiemnt_id while not in trial";
+		BOOST_LOG_TRIVIAL(error) << "Can't access experiemnt_id while not in trial";
 	}
 	return "";
 }
@@ -61,9 +61,28 @@ nlohmann::json TrialListener::GetTrialMessage(){
 		return trial_message;
 	}
 	else{
-		BOOST_LOG_TRIVIAL(info) << "Error: Can't access trial_message while not in trial";
+		BOOST_LOG_TRIVIAL(error) << "Can't access trial_message while not in trial";
 	}
 	return {};
+}
+
+vector<string> TrialListener::GetParticipants(){
+	vector<string> participants;
+	if(InTrial()){
+		try{
+			vector<nlohmann::json> client_info = trial_message["data"]["client_info"].get<vector<nlohmann::json>>();
+			for(nlohmann::json client : client_info){
+				participants.push_back(client["participant_id"]);
+			}
+		}
+		catch(exception e){
+			BOOST_LOG_TRIVIAL(error) << "Trial start message missing client_info";
+		}
+	}
+	else{
+		BOOST_LOG_TRIVIAL(error) << "Can't access participant info while not in trial";
+	}
+	return participants;
 }
 
 bool TrialListener::InTrial(){
@@ -75,7 +94,9 @@ void TrialListener::Connect(){
     string client_id = uuid + "_TrialListener";
     string server_address = "tcp://" + mqtt_host + ":" + mqtt_port;
     mqtt_client =  make_unique<mqtt::client>(server_address, client_id);
-    
+
+    mqtt_client->start_consuming();
+
     mqtt::connect_options connOpts;
     connOpts.set_keep_alive_interval(20);
     connOpts.set_clean_session(true);
@@ -96,10 +117,10 @@ void TrialListener::OnMessage(string message){
 	// Parse JSON message
 	nlohmann::json obj;
 	try{
-		obj= nlohmann::json::parse(message);	
+		obj = nlohmann::json::parse(message);	
 	}
 	catch(exception e){
-		BOOST_LOG_TRIVIAL(info) <<  "Error: Failed to parse trial message";
+		BOOST_LOG_TRIVIAL(error) <<  "Failed to parse trial message";
 	}
 
 	// Read sub_type field
@@ -108,18 +129,18 @@ void TrialListener::OnMessage(string message){
 		sub_type = obj["msg"]["sub_type"];
 	}
 	catch(exception e){
-		BOOST_LOG_TRIVIAL(info) << "Error: sub_type field is missing from trial message";
+		BOOST_LOG_TRIVIAL(error) << "sub_type field is missing from trial message";
 	}
 
 	// Handle message
 	if(sub_type == "start"){
 		in_trial = true;
-		trial_message = message;	
+		trial_message = nlohmann::json::parse(message);	
 	}	
 	else if(sub_type == "stop"){
 		in_trial = false;
 	}
 	else{
-		BOOST_LOG_TRIVIAL(info) << "Error: Unknown sub_type " << sub_type;	
+		BOOST_LOG_TRIVIAL(error) << "Unknown sub_type " << sub_type;	
 	}
 }

@@ -31,7 +31,7 @@ add_executable(gui
     src/gui.cpp
     src/TrialListener.cpp
     src/Widget.cpp
-    #src/ASRWidget.cpp
+    src/ASRWidget.cpp
     #src/ScoreWidget.cpp
 )
 
