@@ -3,7 +3,7 @@
 	{
 		"topics":[
 			"agent/asr/final",
-			"agent/asr/intermediate"
+			"agent/asr/intermediate",
 			"trial"
 		],
 		"1": {
