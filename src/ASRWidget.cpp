@@ -53,18 +53,26 @@ void ASRWidget::on_message(const std::string& topic, const std::string& message)
 	}
 
 	// Check for playername
-	if(response["data"].contains("participant_id")){
-		if(response["data"]["participant_id"] == this->playername){	
-			string message_text = response["data"]["text"];
-			this->mutex.lock();
-				this->queue.push(message_text);
-			this->mutex.unlock();
-		}
-	}
-	else{
-		std::cout << response.dump() << std::endl;
-	}
-}
+    if(response["data"].count("participant_id") == 1){
+        try {
+        if(response["data"]["participant_id"] == this->playername){
+            string message_text = response["data"]["text"];
+            string participant_id = response["data"]["participant_id"];
+            string time_stamp = response["header"]["timestamp"];
+            this->mutex.lock();
+                this->queue.push(message_text);
+                this->queue.push(participant_id);
+                this->queue.push(time_stamp);
+            this->mutex.unlock();
+        }
+        }
+        catch(exception e) {
+            //std::cout << "Null value of participant_id";
+        }
+    }
+    else{
+        //std::cout << response.dump() << std::endl;
+    }}
 
 void ASRWidget::Initialize(){
 	this->static_text = (wxStaticText *)this->frame->FindWindowByName(this->component_name);
@@ -79,12 +87,16 @@ void ASRWidget::Update(){
 			this->mutex.unlock();
 			return;
 		}
-		std::string text = this->queue.front();
-		this->queue.pop();
+    std::string text = this->queue.front();
+    this->queue.pop();
+    std::string participant_id = this->queue.front();
+    this->queue.pop();
+    std::string time_stamp = this->queue.front();
+    this->queue.pop();
 	this->mutex.unlock();
 	this->UpdatePrivate(text);
 }
 
-void ASRWidget::UpdatePrivate(string text){
-	this->static_text->SetLabel(text);
+void ASRWidget::UpdatePrivate(string text, string participant_id, string time_stamp){
+	this->static_text->SetLabel(participant_id+ " "+time_stamp+" "+ text + "\n");
 }
