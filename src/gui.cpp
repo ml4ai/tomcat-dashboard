@@ -44,27 +44,27 @@ bool MyApp::OnInit() {
   if(wxXmlResource::Get()->LoadFrame(trial_frame, NULL, "Trial Frame")){
 	  widgets.push_back(new TrialWidget(trial_frame, "TrialWidget", mqtt_host, mqtt_port));
 	  
-	  trial_frame->Show();
+	  /*trial_frame->Show();
 	  trial_frame->Maximize();  
-	  trial_frame->Refresh();
+	  trial_frame->Refresh();*/
   }
   else{
   	std::cout << "Failed to load Trial frame" << std::endl; 
   }
 
   // Generate ASRWidgets
-  /*utterance_frame = new wxFrame(); 
+  utterance_frame = new wxFrame(); 
   if(wxXmlResource::Get()->LoadFrame(utterance_frame, NULL, "Utterance Frame")){
 	 widgets.push_back(new ASRWidget(utterance_frame, "ASRWidget", mqtt_host, mqtt_port));
 	  
-	  //utterance_frame->Show();
-	  //utterance_frame->Maximize();  
-	  //utterance_frame->Refresh();
+	  utterance_frame->Show();
+	  utterance_frame->Maximize();  
+	  utterance_frame->Refresh();
   }
   else{
   	std::cout << "Failed to load Utterance frame" << std::endl; 
   }
-  */
+  
 
   Connect( wxID_ANY, wxEVT_IDLE, wxIdleEventHandler(MyApp::onIdle) ); 
   return true;
