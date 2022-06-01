@@ -13,9 +13,9 @@
 
 #include "Widget.h"
 
-class ASRWidget : public Widget {	
+class TrialWidget : public Widget {	
 	public:	
-		ASRWidget(wxFrame *frame, std::string type, std::string mqtt_host, std::string mqtt_port);
+		TrialWidget(wxFrame *frame, std::string type, std::string mqtt_host, std::string mqtt_port);
 		void Update() override;
 
 	protected:
@@ -24,6 +24,11 @@ class ASRWidget : public Widget {
 	private:
 		// wx Components
 		wxFrame *frame;
-		std::vector<wxStaticText *> static_text; 
+		wxMenuItem *start_trial;
+		wxMenuItem *stop_trial;
+
+		// wx event handlers for button press
+		void OnStart(wxCommandEvent& event);
+		void OnStop(wxCommandEvent& event);
 };
 

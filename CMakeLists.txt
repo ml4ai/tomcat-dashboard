@@ -20,6 +20,7 @@ find_package(
 )
 find_package(nlohmann_json REQUIRED)
 find_package(Mosquitto REQUIRED)
+find_package(PahoMqttCpp REQUIRED)
 find_package(wxWidgets REQUIRED COMPONENTS net core base xrc)
 include(${wxWidgets_USE_FILE})
 
@@ -28,12 +29,10 @@ include_directories(${PROJECT_SOURCE_DIR}/mathplot)
 
 add_executable(gui
     src/gui.cpp
-    src/Mosquitto.cpp
-    src/MosquittoClient.cpp
+    src/TrialListener.cpp
     src/Widget.cpp
     src/ASRWidget.cpp
-    src/ScoreWidget.cpp
-    src/Frontend.cpp
+    src/TrialWidget.cpp
 )
 
 target_link_libraries(
@@ -45,7 +44,7 @@ target_link_libraries(
     ${wxWidgets_LIBRARIES}
     -pthread
 )
-
+target_link_libraries(gui PahoMqttCpp::paho-mqttpp3)
 
 file(COPY templates/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/templates/)
 file(COPY config/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/config/)
