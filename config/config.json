@@ -11,6 +11,14 @@
 			"UTTERANCE_TEXT_3"
 		]
 	},
+	"TrialWidget":{
+		"topics":[
+		],
+		"components":[
+			"START_TRIAL",
+			"STOP_TRIAL"
+		]
+	},
 	"ScoreWidget":{
 		"topics":[
 			"observations/events/scoreboard"
