@@ -141,6 +141,6 @@ void TrialListener::OnMessage(string message){
 		in_trial = false;
 	}
 	else{
-		BOOST_LOG_TRIVIAL(error) << "Unknown sub_type " << sub_type;	
+//		BOOST_LOG_TRIVIAL(error) << "Unknown sub_type " << sub_type;	
 	}
 }

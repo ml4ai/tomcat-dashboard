@@ -37,9 +37,11 @@ void Widget::LoadConfig(){
                  istreambuf_iterator<char>());
 	try{
         	configuration = nlohmann::json::parse(hold)[type];
+        BOOST_LOG_TRIVIAL(error) << type;
+        
 	}
 	catch(exception e){
-		BOOST_LOG_TRIVIAL(error) << "Unable to load configuration for type: " << type;;
+		BOOST_LOG_TRIVIAL(error) << "Unable to load configuration for type: " << type;
 	}
 	
 	if(this->configuration.contains("topics")){
@@ -67,10 +69,12 @@ void Widget::Connect(){
 
 	mqtt_client->connect(connOpts);
 	Subscribe();
+    BOOST_LOG_TRIVIAL(error) << "Subscribed";
 }
 
 void Widget::Subscribe(){
 	for(string topic : topics){
+        BOOST_LOG_TRIVIAL(error) << topic;
 		mqtt_client->subscribe(topic, 2);
 	}	
 }
@@ -95,6 +99,7 @@ bool Widget::UpdateQueued(){
 }
 
 nlohmann::json Widget::GetUpdate(){
+    
 	std::lock_guard<std::mutex> lock(update_mutex); // Lock mutex	
 	nlohmann::json update = update_queue.front();
 	update_queue.pop();

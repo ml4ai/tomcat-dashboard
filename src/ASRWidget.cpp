@@ -28,17 +28,22 @@ ASRWidget::ASRWidget(wxFrame *frame, string type, string mqtt_host, string mqtt_
 	// Load components
 	vector<string> components = configuration["components"];
 	for(string component : components){
-		wxStaticText *s = (wxStaticText *)frame->FindWindowByName(component);	
+		wxTextCtrl *s = (wxTextCtrl *)frame->FindWindowByName(component);
 		if(s == nullptr){
 			BOOST_LOG_TRIVIAL(error) << "Failed to find component: " << component << " in type: " << type;
 		}
-		static_text.push_back(s);
+        else {
+            BOOST_LOG_TRIVIAL(error) << "staticText found";
+            static_text.push_back(s);
+            
+        }
 	}
 
 }
 
 
 void ASRWidget::OnMessage(std::string topic, std::string message){
+    BOOST_LOG_TRIVIAL(error) << "ASR OnMessage";
 	nlohmann::json update;
 
 	// Parse JSON response
@@ -65,8 +70,11 @@ void ASRWidget::OnMessage(std::string topic, std::string message){
 	}
 
 	// Push update
+    BOOST_LOG_TRIVIAL(error) << "PushUpdate called in ASR";
 	PushUpdate(update);
+    Update();
 }
+
 
 void ASRWidget::Update(){
 	// Check for update
@@ -81,7 +89,7 @@ void ASRWidget::Update(){
 		// Update label
 		for(int i=0;i<participant_ids.size();i++){
 			if(participant_ids[i] == participant_id){ // Find index associated with participant_id
-				this->static_text[i]->SetLabel(text);
+                this->static_text[i]->AppendText(participant_id+": "+text+"\n");
 			}
 		}
 	

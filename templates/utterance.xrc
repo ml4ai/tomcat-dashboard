@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <resource xmlns="http://www.wxwidgets.org/wxxrc" version="2.5.3.0">
+	<object class="wxFrame" name="Trial Frame">
+		<style>wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL</style>
+		<size>691,402</size>
+		<title>frame</title>
+		<centered>1</centered>
+		<aui_managed>0</aui_managed>
+		<object class="wxMenuBar" name="TRIAL_MENU_BAR">
+			<object class="wxMenu" name="TRIAL_MENU">
+				<label>Trial</label>
+				<object class="wxMenuItem" name="START_TRIAL">
+					<label>Start Trial</label>
+					<help></help>
+				</object>
+				<object class="wxMenuItem" name="STOP_TRIAL">
+					<label>Stop Trial</label>
+					<help></help>
+				</object>
+			</object>
+		</object>
+	</object>
 	<object class="wxFrame" name="Utterance Frame">
 		<style>wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL</style>
 		<size>691,402</size>
@@ -9,30 +29,27 @@
 		<object class="wxBoxSizer">
 			<orient>wxVERTICAL</orient>
 			<object class="sizeritem">
-				<option>0</option>
-				<flag>wxALL</flag>
+				<option>1</option>
+				<flag>wxALL|wxEXPAND</flag>
 				<border>5</border>
-				<object class="wxStaticText" name="UTTERANCE_TEXT_1">
-					<label>m__staticText1</label>
-					<wrap>-1</wrap>
+				<object class="wxTextCtrl" name="UTTERANCE_TEXT_1">
+					<value></value>
 				</object>
 			</object>
 			<object class="sizeritem">
-				<option>0</option>
-				<flag>wxALL</flag>
+				<option>1</option>
+				<flag>wxALL|wxEXPAND</flag>
 				<border>5</border>
-				<object class="wxStaticText" name="UTTERANCE_TEXT_2">
-					<label>m__staticText2</label>
-					<wrap>-1</wrap>
+				<object class="wxTextCtrl" name="UTTERANCE_TEXT_2">
+					<value></value>
 				</object>
 			</object>
 			<object class="sizeritem">
-				<option>0</option>
-				<flag>wxALL</flag>
+				<option>1</option>
+				<flag>wxALL|wxEXPAND</flag>
 				<border>5</border>
-				<object class="wxStaticText" name="UTTERANCE_TEXT_3">
-					<label>m__staticText3</label>
-					<wrap>-1</wrap>
+				<object class="wxTextCtrl" name="UTTERANCE_TEXT_3">
+					<value></value>
 				</object>
 			</object>
 		</object>
@@ -51,4 +68,3 @@
 		</object>
 	</object>
 </resource>
-
