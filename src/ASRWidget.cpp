@@ -33,7 +33,6 @@ ASRWidget::ASRWidget(wxFrame *frame, string type, string mqtt_host, string mqtt_
 			BOOST_LOG_TRIVIAL(error) << "Failed to find component: " << component << " in type: " << type;
 		}
         else {
-            BOOST_LOG_TRIVIAL(error) << "staticText found";
             static_text.push_back(s);
             
         }
@@ -43,7 +42,6 @@ ASRWidget::ASRWidget(wxFrame *frame, string type, string mqtt_host, string mqtt_
 
 
 void ASRWidget::OnMessage(std::string topic, std::string message){
-    BOOST_LOG_TRIVIAL(error) << "ASR OnMessage";
 	nlohmann::json update;
 
 	// Parse JSON response
@@ -70,9 +68,7 @@ void ASRWidget::OnMessage(std::string topic, std::string message){
 	}
 
 	// Push update
-    BOOST_LOG_TRIVIAL(error) << "PushUpdate called in ASR";
 	PushUpdate(update);
-    Update();
 }
 
 

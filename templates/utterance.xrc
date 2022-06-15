@@ -1,25 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <resource xmlns="http://www.wxwidgets.org/wxxrc" version="2.5.3.0">
-	<object class="wxFrame" name="Trial Frame">
-		<style>wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL</style>
-		<size>691,402</size>
-		<title>frame</title>
-		<centered>1</centered>
-		<aui_managed>0</aui_managed>
-		<object class="wxMenuBar" name="TRIAL_MENU_BAR">
-			<object class="wxMenu" name="TRIAL_MENU">
-				<label>Trial</label>
-				<object class="wxMenuItem" name="START_TRIAL">
-					<label>Start Trial</label>
-					<help></help>
-				</object>
-				<object class="wxMenuItem" name="STOP_TRIAL">
-					<label>Stop Trial</label>
-					<help></help>
-				</object>
-			</object>
-		</object>
-	</object>
 	<object class="wxFrame" name="Utterance Frame">
 		<style>wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL</style>
 		<size>691,402</size>
@@ -33,7 +13,9 @@
 				<flag>wxALL|wxEXPAND</flag>
 				<border>5</border>
 				<object class="wxTextCtrl" name="UTTERANCE_TEXT_1">
+					<enabled>0</enabled>
 					<value></value>
+					<maxlength>0</maxlength>
 				</object>
 			</object>
 			<object class="sizeritem">
@@ -41,7 +23,9 @@
 				<flag>wxALL|wxEXPAND</flag>
 				<border>5</border>
 				<object class="wxTextCtrl" name="UTTERANCE_TEXT_2">
+					<enabled>0</enabled>
 					<value></value>
+					<maxlength>0</maxlength>
 				</object>
 			</object>
 			<object class="sizeritem">
@@ -49,7 +33,9 @@
 				<flag>wxALL|wxEXPAND</flag>
 				<border>5</border>
 				<object class="wxTextCtrl" name="UTTERANCE_TEXT_3">
+					<enabled>0</enabled>
 					<value></value>
+					<maxlength>0</maxlength>
 				</object>
 			</object>
 		</object>
