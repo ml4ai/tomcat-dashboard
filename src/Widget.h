@@ -1,10 +1,10 @@
-#pragma once 
-#include <string>
-#include <vector>
+#pragma once
 #include <memory>
-#include <thread>
-#include <queue>
 #include <mutex>
+#include <queue>
+#include <string>
+#include <thread>
+#include <vector>
 
 #include <wx/wxprec.h>
 #include <wx/xrc/xmlres.h>
@@ -12,45 +12,46 @@
 #include <wx/wx.h>
 #endif
 
-#include <nlohmann/json.hpp>
 #include "mqtt/client.h"
+#include <nlohmann/json.hpp>
 
 #include "TrialListener.h"
 
-class Widget{
-	public:
-		Widget(std::string type, std::string mqtt_host, std::string mqtt_port);	
-		virtual void Update() = 0;
-	protected:
-		std::string type;	
-		nlohmann::json configuration;
+class Widget {
+public:
+  Widget(std::string type, std::string mqtt_host, std::string mqtt_port);
+  virtual void Update() = 0;
 
-		std::unique_ptr<TrialListener> trial_listener;	
-	
-		// Functions for queue implementation
-		void PushUpdate(nlohmann::json update);
-		bool UpdateQueued();
-		nlohmann::json GetUpdate();
+protected:
+  std::string type;
+  nlohmann::json configuration;
 
-		// OnMessage called when message recieved, override in Subclass	
-		virtual void OnMessage(std::string topic, std::string message) = 0;
-	private:
-		
-		// MQTT bus data
-		std::string mqtt_host, mqtt_port;
-		std::thread mqtt_thread;
-		std::unique_ptr<mqtt::client> mqtt_client;
-		
-		void Connect();	
-		void Subscribe();
-		void Loop();
+  std::unique_ptr<TrialListener> trial_listener;
 
-		// Configuration files data
-		std::vector<std::string> topics;
-		
-		void LoadConfig();
+  // Functions for queue implementation
+  void PushUpdate(nlohmann::json update);
+  bool UpdateQueued();
+  nlohmann::json GetUpdate();
 
-		// Queue data
-		std::queue<nlohmann::json> update_queue;
-		std::mutex update_mutex;
+  // OnMessage called when message recieved, override in Subclass
+  virtual void OnMessage(std::string topic, std::string message) = 0;
+
+private:
+  // MQTT bus data
+  std::string mqtt_host, mqtt_port;
+  std::thread mqtt_thread;
+  std::unique_ptr<mqtt::client> mqtt_client;
+
+  void Connect();
+  void Subscribe();
+  void Loop();
+
+  // Configuration files data
+  std::vector<std::string> topics;
+
+  void LoadConfig();
+
+  // Queue data
+  std::queue<nlohmann::json> update_queue;
+  std::mutex update_mutex;
 };

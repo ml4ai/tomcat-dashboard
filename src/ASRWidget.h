@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 
 #include <wx/wxprec.h>
 #include <wx/xrc/xmlres.h>
@@ -6,23 +6,25 @@
 #include <wx/wx.h>
 #endif
 
-#include <vector>
-#include <string>
-#include <queue>
+#include <map>
 #include <mutex>
+#include <queue>
+#include <string>
+#include <vector>
 
 #include "Widget.h"
 
-class ASRWidget : public Widget {	
-	public:	
-		ASRWidget(wxFrame *frame, std::string type, std::string mqtt_host, std::string mqtt_port);
-		void Update() override;
-	protected:
-		void OnMessage(std::string topic, std::string message) override;
+class ASRWidget : public Widget {
+public:
+  ASRWidget(wxFrame *frame, std::string type, std::string mqtt_host,
+            std::string mqtt_port);
+  void Update() override;
 
-	private:
-		// wx Components
-		wxFrame *frame;
-		std::vector<wxTextCtrl *> static_text;
+protected:
+  void OnMessage(std::string topic, std::string message) override;
+
+private:
+  // wx Components
+  wxFrame *frame;
+  wxTextCtrl *text_box;
 };
-

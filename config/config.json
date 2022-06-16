@@ -2,14 +2,12 @@
 	"ASRWidget":
 	{
 		"topics":[
-			"agent/asr/final",
-			"agent/asr/intermediate"
+			"agent/asr/final"
 		],
-		"components": [
-			"UTTERANCE_TEXT_1",
-			"UTTERANCE_TEXT_2",
-			"UTTERANCE_TEXT_3"
-		]
+		"components": {
+			"wxTextCtrl":"UTTERANCE_TEXT"
+		}
+
 	},
 	"TrialWidget":{
 		"topics":[
