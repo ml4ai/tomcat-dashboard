@@ -17,13 +17,12 @@ class ASRWidget : public Widget {
 	public:	
 		ASRWidget(wxFrame *frame, std::string type, std::string mqtt_host, std::string mqtt_port);
 		void Update() override;
-
 	protected:
 		void OnMessage(std::string topic, std::string message) override;
 
 	private:
 		// wx Components
 		wxFrame *frame;
-		std::vector<wxStaticText *> static_text; 
+		std::vector<wxTextCtrl *> static_text;
 };
 

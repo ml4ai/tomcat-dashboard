@@ -9,30 +9,33 @@
 		<object class="wxBoxSizer">
 			<orient>wxVERTICAL</orient>
 			<object class="sizeritem">
-				<option>0</option>
-				<flag>wxALL</flag>
+				<option>1</option>
+				<flag>wxALL|wxEXPAND</flag>
 				<border>5</border>
-				<object class="wxStaticText" name="UTTERANCE_TEXT_1">
-					<label>m__staticText1</label>
-					<wrap>-1</wrap>
+				<object class="wxTextCtrl" name="UTTERANCE_TEXT_1">
+					<enabled>0</enabled>
+					<value></value>
+					<maxlength>0</maxlength>
 				</object>
 			</object>
 			<object class="sizeritem">
-				<option>0</option>
-				<flag>wxALL</flag>
+				<option>1</option>
+				<flag>wxALL|wxEXPAND</flag>
 				<border>5</border>
-				<object class="wxStaticText" name="UTTERANCE_TEXT_2">
-					<label>m__staticText2</label>
-					<wrap>-1</wrap>
+				<object class="wxTextCtrl" name="UTTERANCE_TEXT_2">
+					<enabled>0</enabled>
+					<value></value>
+					<maxlength>0</maxlength>
 				</object>
 			</object>
 			<object class="sizeritem">
-				<option>0</option>
-				<flag>wxALL</flag>
+				<option>1</option>
+				<flag>wxALL|wxEXPAND</flag>
 				<border>5</border>
-				<object class="wxStaticText" name="UTTERANCE_TEXT_3">
-					<label>m__staticText3</label>
-					<wrap>-1</wrap>
+				<object class="wxTextCtrl" name="UTTERANCE_TEXT_3">
+					<enabled>0</enabled>
+					<value></value>
+					<maxlength>0</maxlength>
 				</object>
 			</object>
 		</object>
@@ -51,4 +54,3 @@
 		</object>
 	</object>
 </resource>
-
