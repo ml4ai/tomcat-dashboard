@@ -30,6 +30,7 @@ public:
 
 wxIMPLEMENT_APP(MyApp);
 
+
 bool MyApp::OnInit() {
   std::string mqtt_host = "localhost";
   std::string mqtt_port = "1883";

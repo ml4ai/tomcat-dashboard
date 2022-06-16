@@ -21,6 +21,7 @@
 
 using namespace std;
 
+
 ASRWidget::ASRWidget(wxFrame *frame, string type, string mqtt_host,
                      string mqtt_port)
     : Widget(type, mqtt_host, mqtt_port) {
@@ -66,6 +67,7 @@ void ASRWidget::OnMessage(std::string topic, std::string message) {
   // Push update
   PushUpdate(update);
 }
+
 
 void ASRWidget::Update() {
   // Check for update
