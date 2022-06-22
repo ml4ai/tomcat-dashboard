@@ -12,28 +12,8 @@
 				<option>1</option>
 				<flag>wxALL|wxEXPAND</flag>
 				<border>5</border>
-				<object class="wxTextCtrl" name="UTTERANCE_TEXT_1">
-					<enabled>0</enabled>
-					<value></value>
-					<maxlength>0</maxlength>
-				</object>
-			</object>
-			<object class="sizeritem">
-				<option>1</option>
-				<flag>wxALL|wxEXPAND</flag>
-				<border>5</border>
-				<object class="wxTextCtrl" name="UTTERANCE_TEXT_2">
-					<enabled>0</enabled>
-					<value></value>
-					<maxlength>0</maxlength>
-				</object>
-			</object>
-			<object class="sizeritem">
-				<option>1</option>
-				<flag>wxALL|wxEXPAND</flag>
-				<border>5</border>
-				<object class="wxTextCtrl" name="UTTERANCE_TEXT_3">
-					<enabled>0</enabled>
+				<object class="wxTextCtrl" name="UTTERANCE_TEXT">
+					<style>wxTE_READONLY | wxTE_MULTILINE</style>
 					<value></value>
 					<maxlength>0</maxlength>
 				</object>
