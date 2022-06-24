@@ -6,18 +6,10 @@
 		<title>frame</title>
 		<centered>1</centered>
 		<aui_managed>0</aui_managed>
-		<object class="wxBoxSizer">
-			<orient>wxVERTICAL</orient>
-			<object class="sizeritem">
-				<option>1</option>
-				<flag>wxALL|wxEXPAND</flag>
-				<border>5</border>
-				<object class="wxTextCtrl" name="UTTERANCE_TEXT">
-					<style>wxTE_READONLY | wxTE_MULTILINE</style>
-					<value></value>
-					<maxlength>0</maxlength>
-				</object>
-			</object>
+		<object class="wxRichTextCtrl" name="UTTERANCE_TEXT">
+			<style>wxVSCROLL|wxHSCROLL|wxNO_BORDER|wxWANTS_CHARS</style>
+			<enabled>0</enabled>
+			<value></value>
 		</object>
 		<object class="wxMenuBar" name="m_menubar8">
 			<object class="wxMenu" name="m_menu3">

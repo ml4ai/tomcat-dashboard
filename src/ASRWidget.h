@@ -4,6 +4,8 @@
 #include <wx/xrc/xmlres.h>
 #ifndef WX_PRECOMP
 #include <wx/wx.h>
+#include <wx/richtext/richtextctrl.h>
+#include <wx/xrc/xh_richtext.h>
 #endif
 
 #include <map>
@@ -26,6 +28,6 @@ protected:
 private:
   // wx Components
   wxFrame *frame;
-  wxTextCtrl *text_box;
+  wxRichTextCtrl *text_box;
 };
 

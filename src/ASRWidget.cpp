@@ -2,6 +2,8 @@
 #include <wx/xrc/xmlres.h>
 #ifndef WX_PRECOMP
 #include <wx/wx.h>
+#include <wx/richtext/richtextctrl.h>
+#include <wx/xrc/xh_richtext.h>
 #endif
 
 #include <fstream>
@@ -29,11 +31,13 @@ ASRWidget::ASRWidget(wxFrame *frame, string type, string mqtt_host,
     : Widget(type, mqtt_host, mqtt_port) {
   // Set variables
   this->frame = frame;
+        
+ 
   
 
-  // Load wxTextCtrl component
+  // Load wxRichTextCtrl component
   string component = configuration["components"]["wxTextCtrl"];
-  wxTextCtrl *s = (wxTextCtrl *)frame->FindWindowByName(component);
+  wxRichTextCtrl *s = (wxRichTextCtrl *)frame->FindWindowByName(component);
   if (s == nullptr) {
     BOOST_LOG_TRIVIAL(error)
         << "Failed to find component: " << component << " in type: " << type;
@@ -59,10 +63,10 @@ void ASRWidget::OnMessage(std::string topic, std::string message) {
     string text = response["data"]["text"];
     string participant_id = response["data"]["participant_id"];
     string time_stamp = response["header"]["timestamp"];
-      if (participant_color.find(participant_id) != participant_color.end()) {
+    if (participant_color.find(participant_id) != participant_color.end()) {
           update["color"] = participant_color.at(participant_id);
-      }
-      else {
+    }
+    else {
           nlohmann::json trial_message = trial_listener->GetTrialMessage();
           vector<nlohmann::json> client_info =
               trial_message["data"]["client_info"].get<vector<nlohmann::json>>();
@@ -101,18 +105,18 @@ void ASRWidget::Update() {
     string text = update["text"];
     string time_stamp = update["timestamp"];
     string color = update["color"];
-    wxFont smallFont(7, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
-    text_box -> SetFont(smallFont);
+    
+    text_box-> BeginFontSize(9);
       
-    text_box->AppendText(time_stamp+ " ");
+    text_box->WriteText(time_stamp+ " ");
+
+    text_box->BeginFontSize(14);
+    wxString s(color);
+    text_box -> SetDefaultStyle(wxTextAttr(s));
       
-    wxFont bigFont(14, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
-    text_box ->SetFont(bigFont);
-      wxString s(color);
+    text_box->WriteText(participant_id + ": ");
       
-    text_box ->SetDefaultStyle(wxTextAttr(s));
-    text_box->AppendText(participant_id + ": ");
-      text_box ->SetDefaultStyle(wxTextAttr("white"));
-    text_box->AppendText(text + "\n");
+    text_box ->SetDefaultStyle(wxTextAttr("white"));
+    text_box->WriteText(text + "\n");
   }
 }
