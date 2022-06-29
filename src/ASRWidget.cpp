@@ -75,7 +75,6 @@ void ASRWidget::OnMessage(std::string topic, std::string message) {
                   string color = client["callsign"];
                   boost::algorithm::to_lower(color);
                   participant_color[participant_id] = color;
-                  BOOST_LOG_TRIVIAL(error) << client["callsign"];
                   update["color"] = color;
               }
           }
@@ -118,5 +117,6 @@ void ASRWidget::Update() {
       
     text_box ->SetDefaultStyle(wxTextAttr("white"));
     text_box->WriteText(text + "\n");
+    text_box->ScrollIntoView(text_box->GetCaretPosition(),WXK_PAGEDOWN);
   }
 }

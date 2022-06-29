@@ -3,11 +3,12 @@
 	<object class="wxFrame" name="Utterance Frame">
 		<style>wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL</style>
 		<size>691,402</size>
+		<enabled>0</enabled>
 		<title>frame</title>
 		<centered>1</centered>
 		<aui_managed>0</aui_managed>
 		<object class="wxRichTextCtrl" name="UTTERANCE_TEXT">
-			<style>wxVSCROLL|wxHSCROLL|wxNO_BORDER|wxWANTS_CHARS</style>
+			<style>wxTE_READONLY|wxVSCROLL|wxHSCROLL|wxWANTS_CHARS</style>
 			<enabled>0</enabled>
 			<value></value>
 		</object>
