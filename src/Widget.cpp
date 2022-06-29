@@ -28,6 +28,7 @@ Widget::Widget(string type, string mqtt_host, string mqtt_port) {
   LoadConfig();
   Connect();
   mqtt_thread = thread([this] { this->Loop(); });
+
 }
 
 void Widget::LoadConfig() {
@@ -99,3 +100,4 @@ nlohmann::json Widget::GetUpdate() {
 
   return update;
 }
+

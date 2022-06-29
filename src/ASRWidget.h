@@ -16,7 +16,7 @@
 
 class ASRWidget : public Widget {
 public:
-  ASRWidget(wxFrame *frame, std::string type, std::string mqtt_host,
+  ASRWidget(wxPanel *panel, std::string type, std::string mqtt_host,
             std::string mqtt_port);
   void Update() override;
 
@@ -25,6 +25,6 @@ protected:
 
 private:
   // wx Components
-  wxFrame *frame;
+  wxPanel *panel;
   wxTextCtrl *text_box;
 };

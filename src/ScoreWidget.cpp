@@ -23,26 +23,50 @@
 #include <utility>
 #include <vector>
 
+#include <boost/log/trivial.hpp>
 #include <nlohmann/json.hpp>
 
 #include "ScoreWidget.h"
 
 using namespace std;
 
-ScoreWidget::ScoreWidget(wxFrame *frame) : Widget(this->type) {
+ScoreWidget::ScoreWidget(wxPanel *panel, string type, string mqtt_host, string mqtt_port) : Widget(type, mqtt_host, mqtt_port) {
   // Set Frame
-  this->frame = frame;
+  this->panel = panel;
 
   // Get data from configuration
-  this->panel_name = this->configuration["panel_name"];
+  panel_name = configuration["panel_name"];
+  x_axis_field = configuration["x_axis_field"];
+  x_axis_label = configuration["x_axis_label"];
+  y_axis_field = configuration["y_axis_field"];
+  y_axis_label = configuration["y_axis_label"];
 
-  this->Initialize();
+  // Create and attach MathPlot chart to frame
+  chart = new mpWindow(panel, -1, wxPoint(0, 0), wxSize(500, 500),
+                             wxSUNKEN_BORDER);
+  chart->AddLayer(new mpScaleX(x_axis_label, mpALIGN_BOTTOM, true));
+  chart->AddLayer(new mpScaleY(y_axis_label, mpALIGN_LEFT, true));
+  std::cout << "HERE" << std::endl;  
+
+  data_vector = new mpFXYVector();
+  x_axis_data.insert(x_axis_data.end(), {});
+  y_axis_data.insert(y_axis_data.end(), {});
+  
+  std::cout << "HERE" << std::endl;  
+  data_vector->SetData(x_axis_data, y_axis_data);
+
+  wxPen vectorpen(*wxBLUE, 5, wxSOLID);
+  data_vector->SetPen(vectorpen);
+  chart->AddLayer(data_vector);
+
+  std::cout << "HERE" << std::endl;  
+  chart->Fit();
 }
 
-ScoreWidget::~ScoreWidget() {}
 
-void ScoreWidget::on_message(const std::string &topic,
-                             const std::string &message) {
+void ScoreWidget::OnMessage(std::string topic,
+                            std::string message) {
+  nlohmann::json update;
 
   // Parse JSON response
   nlohmann::json response;
@@ -53,68 +77,40 @@ void ScoreWidget::on_message(const std::string &topic,
     return;
   }
 
-  pair<double, double> point;
-  // Check for mission_timer and scoreboard
-  if (response["data"].contains("mission_timer") &&
-      response["data"].contains("scoreboard")) {
-    point.first = response["data"]["mission_timer"];
-    double total_score = 0.0;
-    for (auto element : response["data"]["scoreboard"].items()) {
-      total_score += element.value().get<double>();
-    }
-    point.second = total_score;
-  } else {
-    std::cout << response.dump() << std::endl;
-    return;
+  // Check for existence of x_axis_field in message
+  if (response["data"].contains(x_axis_field)) {
+    update["x_point"] = response["data"][x_axis_field];
+  } 
+  else{
+	BOOST_LOG_TRIVIAL(error) << "Missing fields in update message";
+	return;
   }
 
-  this->mutex.lock();
-  this->queue.push(point);
-  this->mutex.unlock();
+  
+  // Check for existence of y_axis_field in message
+  if (response["data"].contains(y_axis_field)) {
+    update["y_point"] = response["data"][y_axis_field];
+  } 
+  else{
+	BOOST_LOG_TRIVIAL(error) << "Missing fields in update message"; 	
+	return;
+  }
+
+  PushUpdate(update);
 }
 
 void ScoreWidget::Update() {
-  this->mutex.lock();
-  if (this->queue.empty()) {
-    this->mutex.unlock();
-    return;
+  // Check for update
+  if (UpdateQueued()) {
+    	nlohmann::json update = GetUpdate();
+	std::cout << update["x_point"] << std::endl;
+	std::cout << update["y_point"] << std::endl;
+	x_axis_data.push_back(update["x_point"]);
+	y_axis_data.push_back(update["y_point"]);
+	data_vector->SetData(x_axis_data, y_axis_data);
+
+	// mpWindow must be refreshed after setting data
+	chart->Refresh();
   }
-  pair<double, double> point = this->queue.front();
-  this->queue.pop();
-  this->mutex.unlock();
-  this->UpdatePrivate(point);
 }
 
-void ScoreWidget::UpdatePrivate(pair<double, double> point) {
-  std::cout << "Updating chart" << std::endl;
-  this->time.push_back(point.first);
-  this->score.push_back(point.second);
-  this->data_vector->SetData(this->time, this->score);
-
-  // mpWindow must be refreshed after setting data
-  this->chart->Refresh();
-}
-
-void ScoreWidget::Initialize() {
-  // Get components
-  this->panel = (wxPanel *)this->frame->FindWindowByName(this->panel_name);
-
-  // Create and attach MathPlot chart to frame
-  this->chart = new mpWindow(this->panel, -1, wxPoint(0, 0), wxSize(500, 500),
-                             wxSUNKEN_BORDER);
-  this->chart->AddLayer(new mpScaleX(wxT("X-Axis"), mpALIGN_BOTTOM, true));
-  this->chart->AddLayer(new mpScaleY(wxT("Y-Axis"), mpALIGN_LEFT, true));
-
-  this->data_vector = new mpFXYVector();
-  this->time.insert(this->time.end(), {});
-  this->score.insert(this->score.end(), {});
-  this->time.insert(this->time.end(), {1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
-  this->score.insert(this->score.end(),
-                     {0, 20, 20, 120, 150, 190, 230, 300, 310, 320});
-  this->data_vector->SetData(this->time, this->score);
-  wxPen vectorpen(*wxBLUE, 5, wxSOLID);
-  this->data_vector->SetPen(vectorpen);
-  this->chart->AddLayer(this->data_vector);
-
-  this->chart->Fit();
-}

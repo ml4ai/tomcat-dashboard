@@ -26,25 +26,21 @@
 class ScoreWidget : public Widget {
 
 public:
-  inline static const std::string type = "ScoreWidget";
-
-public:
-  ScoreWidget(wxFrame *frame);
-  ~ScoreWidget();
+  ScoreWidget(wxPanel *panel, std::string type, std::string mqtt_host, std::string mqtt_port);
 
   void Update() override;
 
 protected:
-  void on_message(const std::string &topic,
-                  const std::string &message) override;
+  void OnMessage(std::string topic,
+                 std::string message) override;
 
 private:
-  // Framework
-  std::mutex mutex;
-  std::queue<std::pair<double, double>> queue;
-
   // Configuration values
   std::string panel_name;
+  std::string x_axis_field;
+  std::string x_axis_label;
+  std::string y_axis_field;
+  std::string y_axis_label;
 
   // wxComponents
   wxPanel *panel;
@@ -52,10 +48,6 @@ private:
 
   // Data components
   mpFXYVector *data_vector;
-  std::vector<double> time;
-  std::vector<double> score;
-
-private:
-  void Initialize();
-  void UpdatePrivate(std::pair<double, double> point);
+  std::vector<double> x_axis_data;
+  std::vector<double> y_axis_data;
 };

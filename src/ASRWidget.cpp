@@ -22,15 +22,15 @@
 using namespace std;
 
 
-ASRWidget::ASRWidget(wxFrame *frame, string type, string mqtt_host,
+ASRWidget::ASRWidget(wxPanel *panel,  string type, string mqtt_host,
                      string mqtt_port)
     : Widget(type, mqtt_host, mqtt_port) {
-  // Set variables
-  this->frame = frame;
+
+  this->panel = panel;
 
   // Load wxTextCtrl component
   string component = configuration["components"]["wxTextCtrl"];
-  wxTextCtrl *s = (wxTextCtrl *)frame->FindWindowByName(component);
+  wxTextCtrl *s = (wxTextCtrl *)panel->FindWindowByName(component);
   if (s == nullptr) {
     BOOST_LOG_TRIVIAL(error)
         << "Failed to find component: " << component << " in type: " << type;
