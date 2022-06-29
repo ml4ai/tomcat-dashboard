@@ -21,11 +21,11 @@
 
 using namespace std;
 
-TrialWidget::TrialWidget(wxFrame *frame, string type, string mqtt_host,
+TrialWidget::TrialWidget(wxPanel *panel, string type, string mqtt_host,
                          string mqtt_port)
     : Widget(type, mqtt_host, mqtt_port) {
-  // Set variables
-  this->frame = frame;
+
+  this->panel = panel;
 
   // Load components
   vector<string> components = configuration["components"];
@@ -37,8 +37,8 @@ TrialWidget::TrialWidget(wxFrame *frame, string type, string mqtt_host,
   int stop_trial_id = XRCID(stop_trial_name);
 
   // Bind handlers
-  frame->Bind(wxEVT_MENU, &TrialWidget::OnStart, this, start_trial_id);
-  frame->Bind(wxEVT_MENU, &TrialWidget::OnStop, this, stop_trial_id);
+  panel->Bind(wxEVT_MENU, &TrialWidget::OnStart, this, start_trial_id);
+  panel->Bind(wxEVT_MENU, &TrialWidget::OnStop, this, stop_trial_id);
 }
 
 void TrialWidget::OnMessage(std::string topic, std::string message) {

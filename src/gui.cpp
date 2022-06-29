@@ -12,7 +12,7 @@
 
 #include "ASRWidget.h"
 #include "ScoreWidget.h"
-//#include "TrialWidget.h"
+#include "TrialWidget.h"
 #include "Widget.h"
 
 using namespace std;

@@ -106,7 +106,7 @@
 									<border>5</border>
 									<object class="wxTextCtrl" name="UTTERANCE_TEXT">
 										<style>wxTE_READONLY | wxTE_MULTILINE</style>
-										<value>dEFUALT</value>
+										<value>Waiting for ASR messages...</value>
 										<maxlength>0</maxlength>
 									</object>
 								</object>

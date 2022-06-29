@@ -15,7 +15,7 @@
 
 class TrialWidget : public Widget {
 public:
-  TrialWidget(wxFrame *frame, std::string type, std::string mqtt_host,
+  TrialWidget(wxPanel *panel, std::string type, std::string mqtt_host,
               std::string mqtt_port);
   void Update() override;
 
@@ -24,7 +24,7 @@ protected:
 
 private:
   // wx Components
-  wxFrame *frame;
+  wxPanel *panel;
   wxMenuItem *start_trial;
   wxMenuItem *stop_trial;
 
