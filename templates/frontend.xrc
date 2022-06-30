@@ -104,7 +104,7 @@
 									<option>1</option>
 									<flag>wxEXPAND | wxALL</flag>
 									<border>5</border>
-									<object class="wxTextCtrl" name="UTTERANCE_TEXT">
+									<object class="wxRichTextCtrl" name="UTTERANCE_TEXT">
 										<style>wxTE_READONLY | wxTE_MULTILINE</style>
 										<value>Waiting for ASR messages...</value>
 										<maxlength>0</maxlength>

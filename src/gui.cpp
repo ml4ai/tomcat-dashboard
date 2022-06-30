@@ -49,6 +49,7 @@ bool MyApp::OnInit() {
   std::string mqtt_port = "1883";
 
   // Load XRC files
+  wxXmlResource::Get()->AddHandler(new wxRichTextCtrlXmlHandler);
   wxXmlResource::Get()->InitAllHandlers();
   wxXmlResource::Get()->Load("templates/frontend.xrc");
 
@@ -113,7 +114,6 @@ void MyApp::onTrialPress(wxCommandEvent &event){
 	panel_sizer->Layout();
 }
 void MyApp::onASRPress(wxCommandEvent &event){
-	std::cout << utterance_panel << std::endl;
 	current_panel->Hide();
 	current_panel = utterance_panel;
 	utterance_panel->Show();

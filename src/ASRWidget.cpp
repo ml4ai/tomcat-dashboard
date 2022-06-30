@@ -33,8 +33,8 @@ ASRWidget::ASRWidget(wxPanel *panel,  string type, string mqtt_host,
   this->panel = panel;
 
   // Load wxRichTextCtrl component
-  string component = configuration["components"]["wxTextCtrl"];
-  wxRichTextCtrl *s = (wxRichTextCtrl *)frame->FindWindowByName(component);
+  string component = configuration["components"]["wxRichTextCtrl"];
+  wxRichTextCtrl *s = (wxRichTextCtrl *)panel->FindWindowByName(component);
   if (s == nullptr) {
     BOOST_LOG_TRIVIAL(error)
         << "Failed to find component: " << component << " in type: " << type;
@@ -45,7 +45,7 @@ ASRWidget::ASRWidget(wxPanel *panel,  string type, string mqtt_host,
 
 void ASRWidget::OnMessage(std::string topic, std::string message) {
   nlohmann::json update;
-
+	
   // Parse JSON response
   nlohmann::json response;
   try {
@@ -101,18 +101,16 @@ void ASRWidget::Update() {
     string text = update["text"];
     string time_stamp = update["timestamp"];
     string color = update["color"];
-    
-    text_box-> BeginFontSize(9);
-      
-    text_box->WriteText(time_stamp+ " ");
 
+    text_box->BeginFontSize(9);   
+    text_box->WriteText(time_stamp+ " ");
+    
     text_box->BeginFontSize(14);
     wxString s(color);
-    text_box -> SetDefaultStyle(wxTextAttr(s));
-      
-    text_box->WriteText(participant_id + ": ");
-      
-    text_box ->SetDefaultStyle(wxTextAttr("white"));
+    text_box->SetDefaultStyle(wxTextAttr(s));
+    text_box->WriteText(participant_id + ": ");    
+    
+    text_box->SetDefaultStyle(wxTextAttr("white"));
     text_box->WriteText(text + "\n");
     text_box->ScrollIntoView(text_box->GetCaretPosition(),WXK_PAGEDOWN);
   }

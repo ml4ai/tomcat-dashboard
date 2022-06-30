@@ -13,7 +13,7 @@
 			"agent/asr/final"
 		],
 		"components": {
-			"wxTextCtrl":"UTTERANCE_TEXT"
+			"wxRichTextCtrl":"UTTERANCE_TEXT"
 		}
 
 	},
