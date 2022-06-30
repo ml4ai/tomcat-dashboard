@@ -3,6 +3,8 @@
 #include <wx/xrc/xmlres.h>
 #ifndef WX_PRECOMP
 #include <wx/wx.h>
+#include <wx/xrc/xh_richtext.h>
+#include <wx/richtext/richtextctrl.h>
 #endif
 
 #include <memory>
@@ -37,6 +39,7 @@ bool MyApp::OnInit() {
 
   // Load XRC files
   wxXmlResource::Get()->InitAllHandlers();
+  wxXmlResource::Get() -> AddHandler(new wxRichTextCtrlXmlHandler);
   wxXmlResource::Get()->LoadAllFiles("templates");
 
   // Generate ASRWidgets
