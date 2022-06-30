@@ -78,8 +78,9 @@
 						<option>1</option>
 						<flag>wxEXPAND | wxALL</flag>
 						<border>5</border>
-						<object class="wxPanel" name="SCORE_PANEL">
+						<object class="wxPanel" name="CHART_PANEL">
 							<style>wxTAB_TRAVERSAL</style>
+							<hidden>1</hidden>
 						</object>
 					</object>
 					<object class="sizeritem">
@@ -97,7 +98,6 @@
 						<border>5</border>
 						<object class="wxPanel" name="UTTERANCE_PANEL">
 							<style>wxTAB_TRAVERSAL</style>
-							<hidden>1</hidden>
 							<object class="wxBoxSizer">
 								<orient>wxVERTICAL</orient>
 								<object class="sizeritem">
@@ -106,7 +106,7 @@
 									<border>5</border>
 									<object class="wxRichTextCtrl" name="UTTERANCE_TEXT">
 										<style>wxTE_READONLY | wxTE_MULTILINE</style>
-										<value>Waiting for ASR messages...</value>
+										<value>Waiting for ASR messages...\n</value>
 										<maxlength>0</maxlength>
 									</object>
 								</object>

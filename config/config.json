@@ -25,14 +25,14 @@
 			"STOP_TRIAL"
 		]
 	},
-	"ScoreWidget":{
+	"ChartWidget":{
 		 "topics":[
-                	"chart_test"
+                	"score"
 		],
 		"x_axis_field": "Time",
 		"x_axis_label": "Time",
 		"y_axis_field": "Score",
 		"y_axis_label": "Score",
-		"panel_name": "SCORE_PANEL"
+		"panel_name": "CHART_PANEL"
 	}
 }

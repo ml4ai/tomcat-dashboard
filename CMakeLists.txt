@@ -33,7 +33,7 @@ add_executable(gui
     src/Widget.cpp
     src/ASRWidget.cpp
     src/TrialWidget.cpp
-    src/ScoreWidget.cpp
+    src/ChartWidget.cpp
 )
 
 target_link_libraries(
