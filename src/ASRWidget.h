@@ -3,8 +3,8 @@
 #include <wx/wxprec.h>
 #include <wx/xrc/xmlres.h>
 #ifndef WX_PRECOMP
-#include <wx/wx.h>
 #include <wx/richtext/richtextctrl.h>
+#include <wx/wx.h>
 #include <wx/xrc/xh_richtext.h>
 #endif
 
@@ -30,4 +30,3 @@ private:
   wxPanel *panel;
   wxRichTextCtrl *text_box;
 };
-

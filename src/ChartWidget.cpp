@@ -30,7 +30,9 @@
 
 using namespace std;
 
-ChartWidget::ChartWidget(wxPanel *panel, string type, string mqtt_host, string mqtt_port) : Widget(type, mqtt_host, mqtt_port) {
+ChartWidget::ChartWidget(wxPanel *panel, string type, string mqtt_host,
+                         string mqtt_port)
+    : Widget(type, mqtt_host, mqtt_port) {
   // Set Frame
   this->panel = panel;
 
@@ -42,15 +44,15 @@ ChartWidget::ChartWidget(wxPanel *panel, string type, string mqtt_host, string m
   y_axis_label = configuration["y_axis_label"];
 
   // Create and attach MathPlot chart to frame
-  chart = new mpWindow(panel, -1, wxPoint(0, 0), wxSize(500, 500),
-                             wxSUNKEN_BORDER);
+  chart =
+      new mpWindow(panel, -1, wxPoint(0, 0), wxSize(500, 500), wxSUNKEN_BORDER);
   chart->AddLayer(new mpScaleX(x_axis_label, mpALIGN_BOTTOM, true));
   chart->AddLayer(new mpScaleY(y_axis_label, mpALIGN_LEFT, true));
 
   data_vector = new mpFXYVector();
   x_axis_data.insert(x_axis_data.end(), {});
   y_axis_data.insert(y_axis_data.end(), {});
-  
+
   data_vector->SetData(x_axis_data, y_axis_data);
 
   wxPen vectorpen(*wxBLUE, 5, wxSOLID);
@@ -60,9 +62,7 @@ ChartWidget::ChartWidget(wxPanel *panel, string type, string mqtt_host, string m
   chart->Fit();
 }
 
-
-void ChartWidget::OnMessage(std::string topic,
-                            std::string message) {
+void ChartWidget::OnMessage(std::string topic, std::string message) {
   nlohmann::json update;
 
   // Parse JSON response
@@ -77,20 +77,17 @@ void ChartWidget::OnMessage(std::string topic,
   // Check for existence of x_axis_field in message
   if (response["data"].contains(x_axis_field)) {
     update["x_point"] = response["data"][x_axis_field];
-  } 
-  else{
-	BOOST_LOG_TRIVIAL(error) << "Missing fields in update message";
-	return;
+  } else {
+    BOOST_LOG_TRIVIAL(error) << "Missing fields in update message";
+    return;
   }
 
-  
   // Check for existence of y_axis_field in message
   if (response["data"].contains(y_axis_field)) {
     update["y_point"] = response["data"][y_axis_field];
-  } 
-  else{
-	BOOST_LOG_TRIVIAL(error) << "Missing fields in update message"; 	
-	return;
+  } else {
+    BOOST_LOG_TRIVIAL(error) << "Missing fields in update message";
+    return;
   }
 
   PushUpdate(update);
@@ -99,15 +96,14 @@ void ChartWidget::OnMessage(std::string topic,
 void ChartWidget::Update() {
   // Check for update
   if (UpdateQueued()) {
-    	nlohmann::json update = GetUpdate();
-	std::cout << update["x_point"] << std::endl;
-	std::cout << update["y_point"] << std::endl;
-	x_axis_data.push_back(update["x_point"]);
-	y_axis_data.push_back(update["y_point"]);
-	data_vector->SetData(x_axis_data, y_axis_data);
+    nlohmann::json update = GetUpdate();
+    std::cout << update["x_point"] << std::endl;
+    std::cout << update["y_point"] << std::endl;
+    x_axis_data.push_back(update["x_point"]);
+    y_axis_data.push_back(update["y_point"]);
+    data_vector->SetData(x_axis_data, y_axis_data);
 
-	chart->Fit();
-	chart->Refresh(); // mpWindow must be refreshed after setting data
+    chart->Fit();
+    chart->Refresh(); // mpWindow must be refreshed after setting data
   }
 }
-

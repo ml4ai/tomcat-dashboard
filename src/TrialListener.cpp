@@ -1,7 +1,7 @@
+#include <chrono>
 #include <memory>
 #include <string>
 #include <thread>
-#include <chrono>
 
 #include <boost/log/trivial.hpp>
 #include <boost/uuid/uuid.hpp>            // uuid class
@@ -93,10 +93,11 @@ void TrialListener::Connect() {
 
   mqtt_client->start_consuming();
 
-  auto connOpts = mqtt::connect_options_builder()
-                        .clean_session(true)
-                        .automatic_reconnect(chrono::seconds(2), chrono::seconds(30))
-                        .finalize();
+  auto connOpts =
+      mqtt::connect_options_builder()
+          .clean_session(true)
+          .automatic_reconnect(chrono::seconds(2), chrono::seconds(30))
+          .finalize();
 
   mqtt_client->connect(connOpts);
   mqtt_client->subscribe("trial", 2);

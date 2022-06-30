@@ -26,13 +26,13 @@
 class ChartWidget : public Widget {
 
 public:
-  ChartWidget(wxPanel *panel, std::string type, std::string mqtt_host, std::string mqtt_port);
+  ChartWidget(wxPanel *panel, std::string type, std::string mqtt_host,
+              std::string mqtt_port);
 
   void Update() override;
 
 protected:
-  void OnMessage(std::string topic,
-                 std::string message) override;
+  void OnMessage(std::string topic, std::string message) override;
 
 private:
   // Configuration values
