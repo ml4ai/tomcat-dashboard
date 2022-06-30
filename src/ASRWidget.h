@@ -3,8 +3,8 @@
 #include <wx/wxprec.h>
 #include <wx/xrc/xmlres.h>
 #ifndef WX_PRECOMP
-#include <wx/wx.h>
 #include <wx/richtext/richtextctrl.h>
+#include <wx/wx.h>
 #include <wx/xrc/xh_richtext.h>
 #endif
 
@@ -18,7 +18,7 @@
 
 class ASRWidget : public Widget {
 public:
-  ASRWidget(wxFrame *frame, std::string type, std::string mqtt_host,
+  ASRWidget(wxPanel *panel, std::string type, std::string mqtt_host,
             std::string mqtt_port);
   void Update() override;
 
@@ -27,7 +27,6 @@ protected:
 
 private:
   // wx Components
-  wxFrame *frame;
+  wxPanel *panel;
   wxRichTextCtrl *text_box;
 };
-

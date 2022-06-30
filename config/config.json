@@ -1,11 +1,19 @@
 {
+	"Menu":
+	{
+		"components":{
+			"trial_button": "TRIAL_BUTTON",
+			"asr_button" : "ASR_BUTTON",
+			"score_button" : "SCORE_BUTTON"
+		}
+	},
 	"ASRWidget":
 	{
 		"topics":[
 			"agent/asr/final"
 		],
 		"components": {
-			"wxTextCtrl":"UTTERANCE_TEXT"
+			"wxRichTextCtrl":"UTTERANCE_TEXT"
 		}
 
 	},
@@ -17,10 +25,14 @@
 			"STOP_TRIAL"
 		]
 	},
-	"ScoreWidget":{
-		"topics":[
-			"observations/events/scoreboard"
+	"ChartWidget":{
+		 "topics":[
+                	"score"
 		],
-		"panel_name": "SCORE_PANEL"
+		"x_axis_field": "Time",
+		"x_axis_label": "Time",
+		"y_axis_field": "Score",
+		"y_axis_label": "Score",
+		"panel_name": "CHART_PANEL"
 	}
 }
