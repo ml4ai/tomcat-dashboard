@@ -21,7 +21,7 @@ find_package(
 find_package(nlohmann_json REQUIRED)
 find_package(Mosquitto REQUIRED)
 find_package(PahoMqttCpp REQUIRED)
-find_package(wxWidgets REQUIRED COMPONENTS net core base xrc)
+find_package(wxWidgets REQUIRED COMPONENTS net core base xrc richtext)
 include(${wxWidgets_USE_FILE})
 
 add_subdirectory(mathplot)

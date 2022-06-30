@@ -3,6 +3,8 @@
 #include <wx/xrc/xmlres.h>
 #ifndef WX_PRECOMP
 #include <wx/wx.h>
+#include <wx/xrc/xh_richtext.h>
+#include <wx/richtext/richtextctrl.h>
 #endif
 
 #include <memory>
@@ -78,12 +80,11 @@ bool MyApp::OnInit() {
       new ASRWidget(utterance_panel, "ASRWidget", mqtt_host, mqtt_port));
   widgets.push_back(
       new ScoreWidget(score_panel, "ScoreWidget", mqtt_host, mqtt_port));
-  // Generate Widgets
-    /*widgets.push_back(
-        new TrialWidget(trial_frame, frame_pointers,  "TrialWidget", mqtt_host, mqtt_port));
+  widgets.push_back(
+      new TrialWidget(trial_panel,"TrialWidget", mqtt_host, mqtt_port));
 
 
-*/
+
     // Show default frame
     frame->Show();
     frame->Maximize();
